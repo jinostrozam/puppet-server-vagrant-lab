@@ -28,7 +28,7 @@ Vagrant.configure("2") do |config|
                       libvirt__dhcp_enabled: false  
       
       
-      vm1.vm.synced_folder "./control-repo-ppserver", "/etc/puppetlabs/code/environments/production"
+      #vm1.vm.synced_folder "./control-repo-ppserver", "/etc/puppetlabs/code/environments/production"
     
       vm1.vm.provision "shell", path: "scripts/puppet-server-install.sh"
 
@@ -39,9 +39,7 @@ Vagrant.configure("2") do |config|
         sudo echo "*" | sudo tee -a /etc/puppetlabs/puppet/autosign.conf
         sudo echo "autosign = true" | sudo tee -a /etc/puppetlabs/puppet/puppet.conf
         sudo echo "[main]" | sudo tee -a /etc/puppetlabs/puppet/puppet.conf
-        sudo echo -e "certname = puppet\nserver = puppet\nenvironment = production\nruninterval = 15m" | sudo tee -a /etc/puppetlabs/puppet/puppet.conf
-        sudo echo "[agent]" | sudo tee -a /etc/puppetlabs/puppet/puppet.conf
-        sudo echo "certname=agent" | sudo tee -a /etc/puppetlabs/puppet/puppet.conf
+        sudo echo -e "certname = puppet\nserver = puppet\nenvironment = production\nruninterval = 15m" | sudo tee -a /etc/puppetlabs/puppet/puppet.conf      
       SHELL
 
   end
@@ -72,9 +70,9 @@ Vagrant.configure("2") do |config|
         sudo echo -e 'nameserver 8.8.8.8\nnameserver 8.8.4.4\n' > /etc/resolv.conf
         sudo echo "192.168.200.10 puppet" | sudo tee -a /etc/hosts
         sudo echo "192.168.200.20 agent" | sudo tee -a /etc/hosts
-        sudo echo "autosign = true" | sudo tee -a /etc/puppet/puppet.conf
+        sudo echo "autosign = true" | sudo tee -a /etc/puppetlabs/puppet/puppet.conf
         sudo echo "[main]" | sudo tee -a /etc/puppetlabs/puppet/puppet.conf
-        sudo echo -e "certname=agent\nserver = puppet\nenvironment = production\nruninterval = 15m" | sudo tee -a /etc/puppetlabs/puppet/puppet.conf
+        sudo echo -e "certname = agent\nserver = puppet\nenvironment = production\nruninterval = 15m" | sudo tee -a /etc/puppetlabs/puppet/puppet.conf
       SHELL
 
   end
