@@ -1,0 +1,17 @@
+Tras levanta vagrant,
+Ejecutar los siguintes comandos en el puppetserver:
+
+source /etc/lsb-release
+cd /etc/puppetlabs/code/environments
+sudo mv production production.orig
+sudo git clone https://github.com/jinostrozam/ctrl-repo-puppet-server-vagrant-lab.git production
+cd production
+sudo git checkout production
+sudo /opt/puppetlabs/puppet/bin/gem install r10k --no-rdoc --no-ri
+sudo /opt/puppetlabs/puppet/bin/r10k puppetfile install --verbose
+sudo /opt/puppetlabs/bin/puppet apply --environment=production /etc/puppetlabs/code/environments/production/manifests/
+
+
+En el puppet agent, ejecutar el siguiente comando para aplicar la configuracion correspondiente al nodo.
+
+sudo /opt/puppetlabs/bin/puppet agent -t
